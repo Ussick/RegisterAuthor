@@ -15,12 +15,11 @@ import java.util.regex.Pattern;
 
 public class RegisterController extends HttpServlet {
     private boolean showForm = true;
-    private boolean isError = false;
+    private boolean isError;
     private User user=new User();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.setAttribute("user", user);
         req.setAttribute("isError", isError);
         req.setAttribute("showform", showForm);
@@ -29,6 +28,7 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        isError=false;
         String regLog = "^([a-zA-Z0-9_]{2,}[\\.])*[a-zA-Z0-9_]{2,}[@][a-zA-Z]{2,}[\\.a-zA-Z]{3,}$";
         String reg1 = "^[\\w\\W]{8,}$";
         String reg2 = "^[\\w\\W]*[A-ZА-Я]+[\\w\\W]*$";
@@ -102,16 +102,18 @@ public class RegisterController extends HttpServlet {
 
         errorText += "</ul>";
 
+        System.out.println(isError);
+
         if (!isError) {
             UserDao de = DaoFactory.getInstance().getUserDAO();
-//            System.out.println(user);
+            System.out.println(user);
             de.addUser(user);
             showForm = false;
             req.setAttribute("showform", showForm);
             req.setAttribute("isError", isError);
             req.setAttribute("result", "Registration succeeded!");
             req.getRequestDispatcher("WEB-INF/views/registration.jsp").forward(req, resp);
-//            System.out.println("after dispatching");
+            System.out.println("after dispatching");
             showForm = true;
             isError = false;
         } else {

@@ -76,7 +76,7 @@
         </form>
     </table>
     <c:if test="${isError}">
-        <h1 style="float: left; margin-left: 950px; margin-top: -250px; font-size:15px; font-weight: normal">
+        <h1 style="float: left; margin-left: 400px; margin-top: -250px; font-size:15px; font-weight: normal">
                 ${result}
         </h1>
     </c:if>

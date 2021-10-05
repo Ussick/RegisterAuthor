@@ -15,7 +15,7 @@ public class AuthorizationController extends HttpServlet {
     private boolean isBlocked;
     private long timeOfLock;
     private int countLogins;
-    long rez;
+    private long rez;
     HttpSession session;
 
     @Override
